@@ -16,4 +16,4 @@ We also generate some random business data to help demo certain features.
 
 To add:
 
-- Random data added from 1st Jan 2021 to 31st Oct 2021
+- Random "date added" from 1st Jan 2021 to 31st Oct 2021
