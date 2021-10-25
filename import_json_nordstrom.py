@@ -1,8 +1,9 @@
 import json
 import random
 import uuid
+from datetime import tzinfo, timedelta, datetime, timezone
 
-with open("nordstrom_data-original.json") as jsonFile:
+with open("./data/nordstrom_data-original.json") as jsonFile:
     jsonObject = json.load(jsonFile)
     jsonFile.close()
 
@@ -31,6 +32,18 @@ def genRatings():
 
 def genRatingCount():
     return random.randint(1,300)
+
+def genDateAdded():
+    start_date = datetime(2021, 1, 1)
+    end_date = datetime(2021, 10, 31)
+
+    time_between_dates = end_date - start_date
+    days_between_dates = time_between_dates.days
+    random_number_of_days = random.randrange(days_between_dates)
+    random_date = start_date + timedelta(days=random_number_of_days)
+    timestamp = random_date.replace(tzinfo=timezone.utc).timestamp()
+
+    return int(timestamp)
 
 
 categories = jsonObject["catalog"][0]["categories"]
@@ -110,6 +123,7 @@ for product in products:
     product["uuid"] = genUuid()
     product["rating"] = genRatings()
     product["rating_count"] = genRatingCount()
+    product["date_added"] = genDateAdded()
 
     newList.append(product)
 # print(newList[1])
@@ -119,6 +133,6 @@ for product in products:
 
 # sampledList = random.sample(newList,100)
 
-with open('nordstrom_transformed-4.json', 'w') as jsonFile:
+with open('./data/nordstrom_transformed-4.json', 'w') as jsonFile:
     json.dump(newList, jsonFile)
     jsonFile.close()
