@@ -115,6 +115,12 @@ for product in products:
         product["variant_width"] = widthList
         product["variant_images"] = variantImages
 
+    product.pop("reviews_number")
+    product.pop("description")
+    product.pop("meta_description")
+    product.pop("meta_keywords")
+    product.pop("meta_title")
+    product.pop("short_description")
     product["category_hierarchy"] = category_hierarchy
     product["margin"] = genRandMargin()
     product["qty_sold"] = genRandSold()
