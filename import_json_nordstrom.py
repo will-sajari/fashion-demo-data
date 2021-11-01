@@ -102,6 +102,13 @@ for product in products:
             product["images_list"] = imagesList
             product.pop("images")
 
+        product.pop("price_old")
+        product["original_price"] = product["price"]
+
+        product["sale"] = genRandSale()
+        if product["sale"] == "true":
+            product["price"] = round(float(product["price"])*0.9, 2)
+
         if "combinations" in product:
             variantIds = []
             quantityList = []
@@ -112,7 +119,10 @@ for product in products:
             for variant in product["combinations"]:
                 variantIds.append(variant["sku"])
                 quantityList.append(variant["quantity"])
-                priceList.append(variant["price"])
+                if product["sale"] == "true":
+                    priceList.append(round(float(variant["price"])*0.9, 2))
+                else:
+                    priceList.append(variant["price"])
                 if "features" in variant:
                     for feature in variant["features"]:
                         if feature["name"] == "color":
@@ -143,7 +153,6 @@ for product in products:
         product["category_hierarchy"] = category_hierarchy
         product["margin"] = genRandMargin()
         product["qty_sold"] = genRandSold()
-        product["sale"] = genRandSale()
         product["warehouse_location"] = genWarehouseLocation()
         # product["uuid"] = genUuid() probably don't need uuid as we are only using unique skus
         product["rating"] = genRatings()
