@@ -37,7 +37,7 @@ def genUuid():
 
 
 def genRatings():
-    return random.randint(1, 5)
+    return round(random.uniform(1, 5), 2)
 
 
 def genRatingCount():
@@ -157,3 +157,5 @@ for product in products:
 with open(f'./data/{output_file}', 'w') as jsonFile:
     json.dump(newList, jsonFile)
     jsonFile.close()
+
+print("File transform complete")
